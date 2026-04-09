@@ -2,18 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="google-site-verification" content="vpIS4AMFZjl61vwjnsuaFHgQU1PLEHsVEFNRPxsPsJs" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Side Hustle Scout — Find Your Perfect Side Hustle</title>
-<meta name="description" content="Take the 4-question quiz and discover your perfect side hustle. Find out if you're a Digital Artist, Script Ninja, Gear Head, Resale Pro or Local Legend.">
 <script src="https://cdn.tailwindcss.com"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NKBT5D3F2W"></script>
-<script>
-window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag("js",new Date());
-gtag("config","G-NKBT5D3F2W");
-</script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script>
 tailwind.config = {
@@ -25,30 +16,15 @@ tailwind.config = {
         'neon-pink': '#ff44aa',
         'neon-cyan': '#00ffcc',
         'dark': '#0a0a0f',
-        'dark2': '#111118',
-        'dark3': '#1a1a26',
-        'dark4': '#22223a',
       },
       fontFamily: { grotesk: ['Space Grotesk', 'sans-serif'] },
-      boxShadow: {
-        'neon-purple': '0 0 30px rgba(180,77,255,0.4)',
-        'neon-lime': '0 0 30px rgba(170,255,0,0.35)',
-        'neon-pink': '0 0 30px rgba(255,68,170,0.35)',
-        'neon-cyan': '0 0 30px rgba(0,255,204,0.35)',
-      },
       animation: {
         'float': 'float 3s ease-in-out infinite',
         'pulse-slow': 'pulse 3s ease-in-out infinite',
-        'slide-up': 'slideUp 0.5s ease forwards',
-        'fade-in': 'fadeIn 0.4s ease forwards',
-        'scale-in': 'scaleIn 0.3s ease forwards',
         'shimmer': 'shimmer 2s linear infinite',
       },
       keyframes: {
         float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
-        slideUp: { from: { opacity: '0', transform: 'translateY(24px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
-        fadeIn: { from: { opacity: '0' }, to: { opacity: '1' } },
-        scaleIn: { from: { opacity: '0', transform: 'scale(0.92)' }, to: { opacity: '1', transform: 'scale(1)' } },
         shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
       }
     }
@@ -57,549 +33,245 @@ tailwind.config = {
 </script>
 <style>
 * { font-family: 'Space Grotesk', sans-serif; }
-body { background: #0a0a0f; }
-
+body { background: #0a0a0f; color: white; }
 .bento { border-radius: 20px; }
-.neon-border-purple { border: 1px solid rgba(180,77,255,0.35); }
-.neon-border-lime { border: 1px solid rgba(170,255,0,0.3); }
-
 .option-btn {
-  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.22s ease;
   border: 1.5px solid rgba(255,255,255,0.08);
   background: rgba(255,255,255,0.03);
-}
-.option-btn:hover {
-  border-color: rgba(180,77,255,0.6);
-  background: rgba(180,77,255,0.08);
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(180,77,255,0.2);
 }
 .option-btn.selected {
   border-color: #b44dff;
   background: rgba(180,77,255,0.15);
   box-shadow: 0 0 24px rgba(180,77,255,0.3);
-  transform: translateY(-2px);
 }
-.option-btn.selected .option-check { opacity: 1; transform: scale(1); }
 .option-check { opacity: 0; transform: scale(0.5); transition: all 0.2s ease; }
-
-.progress-bar { transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-
+.option-btn.selected .option-check { opacity: 1; transform: scale(1); }
 .shimmer-text {
   background: linear-gradient(90deg, #b44dff, #aaff00, #00ffcc, #ff44aa, #b44dff);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   animation: shimmer 3s linear infinite;
 }
-
-.result-card-glow {
-  box-shadow: 0 0 60px rgba(180,77,255,0.2), 0 0 120px rgba(180,77,255,0.1);
-}
-
-.checklist-item { animation: slide-up 0.4s ease forwards; opacity: 0; }
-.checklist-item:nth-child(1) { animation-delay: 0.2s; }
-.checklist-item:nth-child(2) { animation-delay: 0.4s; }
-.checklist-item:nth-child(3) { animation-delay: 0.6s; }
-
-/* Confetti */
+.screen { display: none; }
+.screen.active { display: block; }
 .confetti-piece {
   position: fixed; width: 8px; height: 8px;
-  border-radius: 2px; z-index: 9999;
+  z-index: 9999; pointer-events: none;
   animation: confettiFall linear forwards;
-  pointer-events: none;
 }
 @keyframes confettiFall {
-  0% { transform: translateY(-20px) rotate(0deg) scale(1); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
 }
-
-.screen { display: none; }
-.screen.active { display: block; animation: fadeIn 0.4s ease; }
 </style>
 </head>
-<body class="min-h-screen bg-dark text-white overflow-x-hidden">
-
-<!-- BG ORBS -->
-<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-  <div class="absolute -top-32 -left-32 w-96 h-96 bg-neon-purple/10 rounded-full blur-3xl animate-pulse-slow"></div>
-  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-neon-lime/8 rounded-full blur-3xl animate-pulse-slow" style="animation-delay:1.5s"></div>
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-neon-cyan/5 rounded-full blur-3xl"></div>
-</div>
+<body class="min-h-screen overflow-x-hidden">
 
 <div class="relative z-10 max-w-lg mx-auto px-4 py-8 min-h-screen flex flex-col">
 
-  <!-- ===== INTRO SCREEN ===== -->
   <div id="screen-intro" class="screen active flex flex-col items-center justify-center min-h-screen text-center gap-6">
-
-    <div class="animate-float text-6xl mb-2">🕵️</div>
-
-    <div>
-      <div class="inline-block px-3 py-1 rounded-full text-xs font-700 tracking-widest uppercase mb-4"
-        style="background:rgba(180,77,255,0.15);border:1px solid rgba(180,77,255,0.3);color:#b44dff">
-        4 Questions · 60 Seconds
-      </div>
-      <h1 class="text-4xl font-700 leading-tight mb-3">
-        <span class="shimmer-text">The Side Hustle Scout</span>
-      </h1>
-      <p class="text-white/50 text-base leading-relaxed max-w-sm mx-auto">
-        Answer 4 quick questions and we'll find the perfect side hustle that matches your lifestyle, skills, and equipment.
-      </p>
-    </div>
-
-    <!-- Result preview cards -->
-    <div class="grid grid-cols-3 gap-2 w-full max-w-xs">
-      <div class="bento p-3 text-center" style="background:rgba(180,77,255,0.08);border:1px solid rgba(180,77,255,0.2)">
-        <div class="text-xl mb-1">🎨</div><div class="text-xs text-white/50">Digital Artist</div>
-      </div>
-      <div class="bento p-3 text-center" style="background:rgba(170,255,0,0.06);border:1px solid rgba(170,255,0,0.2)">
-        <div class="text-xl mb-1">🎬</div><div class="text-xs text-white/50">Script Ninja</div>
-      </div>
-      <div class="bento p-3 text-center" style="background:rgba(0,255,204,0.06);border:1px solid rgba(0,255,204,0.2)">
-        <div class="text-xl mb-1">🔧</div><div class="text-xs text-white/50">Gear Head</div>
-      </div>
-      <div class="bento p-3 text-center" style="background:rgba(255,68,170,0.06);border:1px solid rgba(255,68,170,0.2)">
-        <div class="text-xl mb-1">🏷️</div><div class="text-xs text-white/50">Resale Pro</div>
-      </div>
-      <div class="bento p-3 text-center col-span-2" style="background:rgba(255,200,0,0.06);border:1px solid rgba(255,200,0,0.2)">
-        <div class="text-xl mb-1">🌟</div><div class="text-xs text-white/50">Local Legend</div>
-      </div>
-    </div>
-
-    <button onclick="startQuiz()"
-      class="w-full py-4 rounded-2xl font-700 text-base transition-all duration-200 hover:scale-105 active:scale-95"
-      style="background:linear-gradient(135deg,#b44dff,#7722cc);box-shadow:0 0 30px rgba(180,77,255,0.4)">
+    <div class="text-6xl animate-float">🕵️</div>
+    <h1 class="text-4xl font-bold leading-tight"><span class="shimmer-text">The Side Hustle Scout</span></h1>
+    <p class="text-white/50">Find your perfect hustle in 60 seconds.</p>
+    <button onclick="startQuiz()" class="w-full py-4 rounded-2xl font-bold bg-neon-purple shadow-lg shadow-neon-purple/40 hover:scale-105 transition-transform">
       Find My Hustle →
     </button>
-
-    <p class="text-white/25 text-xs">Free · No signup · Instant results</p>
   </div>
 
-  <!-- ===== QUIZ SCREEN ===== -->
   <div id="screen-quiz" class="screen flex flex-col gap-5">
-
-    <!-- Progress -->
     <div class="flex items-center gap-3">
-      <div class="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden">
-        <div id="progress-bar" class="progress-bar h-full rounded-full bg-neon-purple" style="width:0%"></div>
+      <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+        <div id="progress-bar" class="h-full bg-neon-purple transition-all duration-500" style="width:0%"></div>
       </div>
-      <span id="progress-text" class="text-white/40 text-xs font-600 whitespace-nowrap">1 / 4</span>
+      <span id="progress-text" class="text-xs text-white/40">1 / 4</span>
     </div>
 
-    <!-- Question Card -->
-    <div class="bento p-6" style="background:#111118;border:1px solid rgba(255,255,255,0.07)">
-      <div id="question-tag" class="inline-block px-3 py-1 rounded-full text-xs font-700 tracking-widest uppercase mb-4"
-        style="background:rgba(180,77,255,0.12);color:#b44dff">Question 1</div>
-      <h2 id="question-text" class="text-xl font-700 leading-snug mb-1 text-white"></h2>
-      <p id="question-sub" class="text-white/40 text-sm"></p>
+    <div class="bento p-6 bg-[#111118] border border-white/10">
+      <h2 id="question-text" class="text-xl font-bold mb-1"></h2>
+      <p id="question-sub" class="text-sm text-white/40"></p>
     </div>
 
-    <!-- Options -->
     <div id="options-container" class="flex flex-col gap-3"></div>
 
-    <!-- Next Button -->
-    <button id="next-btn" onclick="nextQuestion()" disabled
-      class="w-full py-4 rounded-2xl font-700 text-base transition-all duration-200 opacity-40"
-      style="background:linear-gradient(135deg,#b44dff,#7722cc)">
+    <button id="next-btn" onclick="nextQuestion()" disabled class="w-full py-4 rounded-2xl font-bold bg-neon-purple opacity-40 transition-all">
       Next →
     </button>
   </div>
 
-  <!-- ===== RESULT SCREEN ===== -->
   <div id="screen-result" class="screen flex flex-col gap-5">
-
-    <!-- Header -->
-    <div class="text-center pt-4">
-      <div class="text-xs font-700 tracking-widest uppercase text-white/40 mb-2">Your Side Hustle Match</div>
-      <div id="result-emoji" class="text-6xl mb-3 animate-float"></div>
-      <h1 id="result-title" class="text-3xl font-700 shimmer-text mb-1"></h1>
-      <p id="result-subtitle" class="text-white/50 text-sm"></p>
+    <div class="text-center">
+      <div id="result-emoji" class="text-6xl mb-2 animate-float"></div>
+      <h1 id="result-title" class="text-3xl font-bold shimmer-text"></h1>
+      <p id="result-subtitle" class="text-white/50 text-sm mb-4"></p>
+    </div>
+    
+    <div class="bento p-6 bg-[#111118] border border-neon-purple/30">
+        <p id="result-desc" class="text-white/70 text-sm leading-relaxed"></p>
     </div>
 
-    <!-- Result Card -->
-    <div id="result-card" class="bento p-6 result-card-glow" style="background:#111118;border:1px solid rgba(180,77,255,0.25)">
-      <div class="flex items-start gap-3 mb-4">
-        <div id="result-badge" class="text-xs font-700 px-3 py-1 rounded-full tracking-wide uppercase"></div>
-      </div>
-      <p id="result-desc" class="text-white/70 text-sm leading-relaxed"></p>
-    </div>
+    <div id="checklist" class="flex flex-col gap-3 bento p-6 bg-[#111118] border border-neon-lime/20"></div>
 
-    <!-- How to Start -->
-    <div class="bento p-6" style="background:#111118;border:1px solid rgba(170,255,0,0.15)">
-      <div class="flex items-center gap-2 mb-4">
-        <div class="w-2 h-2 rounded-full bg-neon-lime"></div>
-        <span class="text-neon-lime text-xs font-700 tracking-widest uppercase">How to Start — 3 Steps</span>
-      </div>
-      <div id="checklist" class="flex flex-col gap-3"></div>
-    </div>
-
-    <!-- Earnings potential -->
     <div class="grid grid-cols-2 gap-3">
-      <div class="bento p-4" style="background:rgba(180,77,255,0.08);border:1px solid rgba(180,77,255,0.15)">
-        <div class="text-white/40 text-xs mb-1 uppercase tracking-wide">Est. Monthly</div>
-        <div id="result-earning" class="text-neon-purple font-700 text-lg"></div>
-      </div>
-      <div class="bento p-4" style="background:rgba(0,255,204,0.06);border:1px solid rgba(0,255,204,0.15)">
-        <div class="text-white/40 text-xs mb-1 uppercase tracking-wide">Startup Cost</div>
-        <div id="result-cost" class="text-neon-cyan font-700 text-lg"></div>
-      </div>
+        <div class="bento p-4 bg-white/5 border border-white/10">
+            <div class="text-[10px] uppercase text-white/40">Est. Monthly</div>
+            <div id="result-earning" class="text-neon-purple font-bold"></div>
+        </div>
+        <div class="bento p-4 bg-white/5 border border-white/10">
+            <div class="text-[10px] uppercase text-white/40">Cost</div>
+            <div id="result-cost" class="text-neon-cyan font-bold"></div>
+        </div>
     </div>
 
-    <!-- Action Buttons -->
-    <button onclick="shareResult()"
-      class="w-full py-4 rounded-2xl font-700 text-base transition-all duration-200 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
-      style="background:linear-gradient(135deg,#aaff00,#66cc00);color:#0a0a0f">
-      📲 Share to Story
+    <button onclick="retakeQuiz()" class="w-full py-3 rounded-2xl bg-white/5 border border-white/10 text-white/40 text-sm">
+      Retake Quiz
     </button>
-
-    <button onclick="retakeQuiz()"
-      class="w-full py-3 rounded-2xl font-600 text-sm transition-all duration-200 hover:bg-white/10"
-      style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)">
-      ↩ Retake Quiz
-    </button>
-
-    <p class="text-center text-white/20 text-xs pb-4">sheroo6211.github.io · Side Hustle Scout</p>
   </div>
-
 </div>
 
 <script>
-// ============================================================
-// QUIZ DATA
-// ============================================================
 const QUESTIONS = [
   {
-    id: 1,
-    tag: 'Question 1 of 4',
     text: 'Where do you feel most productive?',
     sub: 'Choose your natural environment',
     options: [
-      { text: '🖥️ Glued to my screen', sub: 'I live online', scores: { artist: 3, ninja: 3, gear: 2, resale: 1, local: 0 } },
-      { text: '🌍 Out in the real world', sub: 'I love being outdoors and meeting people', scores: { artist: 0, ninja: 0, gear: 1, resale: 2, local: 3 } },
-      { text: '🏠 At home, hands-on', sub: 'I like working with physical things', scores: { artist: 1, ninja: 1, gear: 3, resale: 3, local: 1 } },
-      { text: '🎨 Anywhere with a canvas', sub: 'I create wherever inspiration strikes', scores: { artist: 3, ninja: 2, gear: 0, resale: 1, local: 0 } },
+      { text: '🖥️ Glued to my screen', sub: 'I live online', scores: { artist: 3, ninja: 3, gear: 1 } },
+      { text: '🌍 Out in the real world', sub: 'I love meeting people', scores: { local: 3, resale: 2 } },
+      { text: '🏠 At home, hands-on', sub: 'I like physical things', scores: { gear: 3, resale: 3 } },
+      { text: '🎨 Anywhere creative', sub: 'I create wherever', scores: { artist: 3, ninja: 2 } }
     ]
   },
   {
-    id: 2,
-    tag: 'Question 2 of 4',
-    text: 'What gear do you have right now?',
-    sub: 'Be honest — this matters a lot',
+    text: 'What gear do you have?',
+    sub: 'Be honest — this matters',
     options: [
-      { text: '📱 Just my phone', sub: 'Nothing else needed right?', scores: { artist: 2, ninja: 1, gear: 0, resale: 3, local: 3 } },
-      { text: '💻 A decent PC or laptop', sub: 'My setup is solid', scores: { artist: 3, ninja: 3, gear: 2, resale: 2, local: 1 } },
-      { text: '🔧 Tools and spare parts', sub: 'I have hardware lying around', scores: { artist: 0, ninja: 0, gear: 3, resale: 2, local: 2 } },
-      { text: '🎮 High-end PC + peripherals', sub: 'Full gaming/content setup', scores: { artist: 2, ninja: 3, gear: 3, resale: 1, local: 0 } },
+      { text: '📱 Just my phone', sub: 'Keeping it simple', scores: { resale: 3, local: 3 } },
+      { text: '💻 A decent laptop', sub: 'Ready for work', scores: { artist: 3, ninja: 3, gear: 1 } },
+      { text: '🔧 Tools / Spare parts', sub: 'Hardware ready', scores: { gear: 3, resale: 2 } },
+      { text: '🎮 Pro Gaming PC', sub: 'Full setup', scores: { ninja: 3, gear: 2 } }
     ]
   },
   {
-    id: 3,
-    tag: 'Question 3 of 4',
-    text: 'Which skill describes you best?',
-    sub: 'What do people come to you for?',
+    text: 'What is your best skill?',
+    sub: 'What are you known for?',
     options: [
-      { text: '🎨 I\'m creative — I make things look good', sub: 'Design, art, aesthetics', scores: { artist: 3, ninja: 2, gear: 0, resale: 1, local: 0 } },
-      { text: '🧠 I\'m logical — I fix and build things', sub: 'Problem solving, technical', scores: { artist: 0, ninja: 1, gear: 3, resale: 1, local: 1 } },
-      { text: '🤝 I\'m social — I love talking to people', sub: 'Networking, customer service', scores: { artist: 0, ninja: 0, gear: 1, resale: 2, local: 3 } },
-      { text: '✂️ I have a great eye for detail', sub: 'Editing, spotting trends', scores: { artist: 2, ninja: 3, gear: 1, resale: 3, local: 0 } },
+      { text: '🎨 Creative / Design', sub: 'Visual eye', scores: { artist: 3, ninja: 1 } },
+      { text: '🧠 Fixing / Building', sub: 'Problem solver', scores: { gear: 3, ninja: 1 } },
+      { text: '🤝 Social / Networking', sub: 'People person', scores: { local: 3, resale: 2 } },
+      { text: '✂️ Eye for Detail', sub: 'Spotting trends', scores: { ninja: 3, resale: 3 } }
     ]
   },
   {
-    id: 4,
-    tag: 'Question 4 of 4',
-    text: 'How much time can you realistically commit?',
-    sub: 'Be honest with yourself',
+    text: 'How much time can you commit?',
+    sub: 'Realistic hours per week',
     options: [
-      { text: '⏰ 1 hour a day after school/work', sub: 'Consistent but limited', scores: { artist: 3, ninja: 3, gear: 1, resale: 2, local: 1 } },
-      { text: '📅 Weekends only', sub: 'Free on Saturday and Sunday', scores: { artist: 2, ninja: 1, gear: 3, resale: 3, local: 3 } },
-      { text: '🔥 I can go all in — 4+ hours daily', sub: 'I\'m serious about this', scores: { artist: 3, ninja: 3, gear: 3, resale: 3, local: 2 } },
-      { text: '💤 Honestly, not much — passive only', sub: 'I want money while I sleep', scores: { artist: 2, ninja: 1, gear: 0, resale: 3, local: 0 } },
+      { text: '⏰ 1 hour daily', sub: 'Consistency is key', scores: { artist: 3, ninja: 3 } },
+      { text: '📅 Weekends only', sub: 'Sat & Sun grind', scores: { local: 3, gear: 3, resale: 3 } },
+      { text: '🔥 All in (4+ hours)', sub: 'I am serious', scores: { artist: 3, ninja: 3, gear: 3 } },
+      { text: '💤 Passive only', sub: 'Minimal effort', scores: { resale: 3, artist: 1 } }
     ]
   }
 ];
 
 const RESULTS = {
-  artist: {
-    emoji: '🎨',
-    title: 'The Digital Artist',
-    subtitle: 'Selling emotes, avatars & digital art',
-    badge: '🎨 Creative Path',
-    badgeColor: 'rgba(180,77,255,0.2)',
-    badgeText: '#b44dff',
-    desc: 'You\'ve got the creative eye and the screen time to match. The digital art market is BOOMING — streamers, Discord servers and brands constantly need custom emotes, profile pics, and assets. You can start on Fiverr with zero upfront cost.',
-    steps: [
-      { num: '01', text: 'Create 3 sample emotes or avatars using Procreate, Photoshop, or even Canva — post them on your socials as a portfolio.' },
-      { num: '02', text: 'Sign up on Fiverr and create a gig titled "I will create custom Twitch emotes" — start at $5-10 to get your first reviews.' },
-      { num: '03', text: 'Join r/artcommissions and Twitch/Discord servers. Offer a free sample to one streamer in exchange for a testimonial.' },
-    ],
-    earning: '$200–$800/mo',
-    cost: '$0 to start',
-    shareText: 'I\'m a Digital Artist! 🎨 I took the Side Hustle Scout quiz and discovered my perfect hustle. What\'s yours?'
-  },
-  ninja: {
-    emoji: '🎬',
-    title: 'The Script Ninja',
-    subtitle: 'Video editing for YouTubers & creators',
-    badge: '🎬 Creator Economy',
-    badgeColor: 'rgba(0,255,204,0.12)',
-    badgeText: '#00ffcc',
-    desc: 'Every YouTuber needs an editor they can trust. You have the PC, the eye for detail, and the patience to cut, color grade and add effects. This is one of the fastest-growing freelance skills — and most editors are booked solid within 3 months.',
-    steps: [
-      { num: '01', text: 'Download DaVinci Resolve (free) and edit a 2-minute sample video from YouTube. Make it look cinematic — this is your portfolio piece.' },
-      { num: '02', text: 'DM 10 small YouTubers (1k–50k subs) offering to edit ONE video for free. Just one yes is all you need to start.' },
-      { num: '03', text: 'Once you have 2-3 samples, list on Fiverr at $25 per video. Raise your rates by $10 after every 5 good reviews.' },
-    ],
-    earning: '$300–$1500/mo',
-    cost: '$0 (free tools)',
-    shareText: 'I\'m a Script Ninja! 🎬 I took the Side Hustle Scout quiz and found my perfect hustle. What\'s yours?'
-  },
-  gear: {
-    emoji: '🔧',
-    title: 'The Gear Head',
-    subtitle: 'PC building, repair & tech support',
-    badge: '🔧 Tech Services',
-    badgeColor: 'rgba(255,200,0,0.1)',
-    badgeText: '#ffcc00',
-    desc: 'People are DESPERATE for someone who actually knows how computers work. From building custom PCs to fixing broken laptops, your technical brain is a goldmine. Word of mouth alone can fill your calendar within weeks.',
-    steps: [
-      { num: '01', text: 'List yourself on Facebook Marketplace and local Facebook groups as a "PC Repair & Upgrade Specialist." A phone photo of your own setup is your portfolio.' },
-      { num: '02', text: 'Start with simple fixes — RAM upgrades, SSD installs, virus removal. Charge $30–50 per job and always overdeliver.' },
-      { num: '03', text: 'Ask every happy customer for a Facebook or Google review. After 5 reviews, raise your rates and start offering full PC builds for $100+ profit per build.' },
-    ],
-    earning: '$400–$1200/mo',
-    cost: 'Tools you have',
-    shareText: 'I\'m a Gear Head! 🔧 I took the Side Hustle Scout quiz and found my perfect hustle. What\'s yours?'
-  },
-  resale: {
-    emoji: '🏷️',
-    title: 'The Resale Pro',
-    subtitle: 'Flipping thrifted & vintage items',
-    badge: '🏷️ Hustle Culture',
-    badgeColor: 'rgba(255,68,170,0.1)',
-    badgeText: '#ff44aa',
-    desc: 'Your eye for value is your superpower. Thrift stores, garage sales and Facebook Marketplace are full of hidden gems that people are willing to pay 5-10x for on eBay or Depop. This hustle is pure profit — buy low, sell high.',
-    steps: [
-      { num: '01', text: 'Visit 2-3 thrift stores this weekend with $30–50. Look for branded clothing (Nike, Adidas, vintage tees), electronics, and furniture. Check sold listings on eBay FIRST to confirm demand.' },
-      { num: '02', text: 'List your items on Depop, eBay, and Facebook Marketplace with clean photos on a white background. Write keyword-rich descriptions.' },
-      { num: '03', text: 'Reinvest 70% of every sale back into more inventory. Your buying power doubles every month if you stay consistent.' },
-    ],
-    earning: '$150–$600/mo',
-    cost: '$30–50 to start',
-    shareText: 'I\'m a Resale Pro! 🏷️ I took the Side Hustle Scout quiz and found my perfect hustle. What\'s yours?'
-  },
-  local: {
-    emoji: '🌟',
-    title: 'The Local Legend',
-    subtitle: 'Pet sitting, car washing & local services',
-    badge: '🌟 Community Hustle',
-    badgeColor: 'rgba(255,200,0,0.1)',
-    badgeText: '#ffd700',
-    desc: 'You\'re a people person and your neighbourhood is your marketplace. Services like dog walking, car washing, lawn mowing and general errands are always in demand — and customers pay cash, on the spot. No shipping, no algorithms, just hustle.',
-    steps: [
-      { num: '01', text: 'Make a simple flyer (use Canva — it\'s free) offering your service with your phone number. Print 20 copies and post them in your neighborhood, at local shops, and community boards.' },
-      { num: '02', text: 'Create a profile on Rover (pet services) or TaskRabbit (general tasks) to get your first verified customers and reviews fast.' },
-      { num: '03', text: 'Do every first job perfectly. Ask for a referral — "Do you know anyone else who needs this?" One happy customer can bring you 5 more within a month.' },
-    ],
-    earning: '$200–$700/mo',
-    cost: '$0–$20',
-    shareText: 'I\'m a Local Legend! 🌟 I took the Side Hustle Scout quiz and found my perfect hustle. What\'s yours?'
-  }
+  artist: { emoji: '🎨', title: 'Digital Artist', subtitle: 'Emotes & Avatars', desc: 'The market for digital assets is huge. Start on Fiverr or Discord.', earning: '$200-800', cost: '$0' },
+  ninja: { emoji: '🎬', title: 'Script Ninja', subtitle: 'Video Editing', desc: 'Every creator needs an editor. Master DaVinci Resolve.', earning: '$300-1500', cost: '$0' },
+  gear: { emoji: '🔧', title: 'Gear Head', subtitle: 'PC Build & Repair', desc: 'People pay well for tech support and custom builds.', earning: '$400-1200', cost: 'Tools' },
+  resale: { emoji: '🏷️', title: 'Resale Pro', subtitle: 'Vintage Flipping', desc: 'Buy low on Marketplace, sell high on Depop/eBay.', earning: '$150-600', cost: '$30+' },
+  local: { emoji: '🌟', title: 'Local Legend', subtitle: 'Neighborhood Services', desc: 'Car washing, pet sitting, or lawn care for cash.', earning: '$200-700', cost: '$0-20' }
 };
 
-// ============================================================
-// STATE
-// ============================================================
 let currentQ = 0;
-let scores = { artist: 0, ninja: 0, gear: 0, resale: 0, local: 0 };
-let selectedOption = null;
-let answers = [];
+let userScores = { artist: 0, ninja: 0, gear: 0, resale: 0, local: 0 };
+let selectedIdx = null;
 
-// ============================================================
-// QUIZ LOGIC
-// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+}
+
 function startQuiz() {
   currentQ = 0;
-  scores = { artist: 0, ninja: 0, gear: 0, resale: 0, local: 0 };
-  answers = [];
-  selectedOption = null;
+  userScores = { artist: 0, ninja: 0, gear: 0, resale: 0, local: 0 };
   showScreen('quiz');
   renderQuestion();
 }
 
 function renderQuestion() {
   const q = QUESTIONS[currentQ];
-  selectedOption = null;
+  selectedIdx = null;
+  document.getElementById('progress-bar').style.width = (currentQ / QUESTIONS.length * 100) + '%';
+  document.getElementById('progress-text').innerText = `${currentQ + 1} / ${QUESTIONS.length}`;
+  document.getElementById('question-text').innerText = q.text;
+  document.getElementById('question-sub').innerText = q.sub;
 
-  // Progress
-  const progress = ((currentQ) / QUESTIONS.length) * 100;
-  document.getElementById('progress-bar').style.width = progress + '%';
-  document.getElementById('progress-text').textContent = `${currentQ + 1} / ${QUESTIONS.length}`;
-
-  // Question
-  document.getElementById('question-tag').textContent = q.tag;
-  document.getElementById('question-text').textContent = q.text;
-  document.getElementById('question-sub').textContent = q.sub;
-
-  // Options
   const container = document.getElementById('options-container');
   container.innerHTML = q.options.map((opt, i) => `
-    <button class="option-btn bento p-4 text-left w-full flex items-center gap-3"
-      onclick="selectOption(this, ${i}, '${JSON.stringify(opt.scores).replace(/'/g, "\\'")}')">
-      <div class="flex-1">
-        <div class="font-600 text-white text-sm leading-snug">${opt.text}</div>
-        <div class="text-white/40 text-xs mt-0.5">${opt.sub}</div>
+    <button class="option-btn bento p-4 text-left w-full flex items-center justify-between" onclick="selectOption(${i})">
+      <div>
+        <div class="font-bold text-sm">${opt.text}</div>
+        <div class="text-white/40 text-xs">${opt.sub}</div>
       </div>
-      <div class="option-check w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
-        style="background:rgba(180,77,255,0.3);border:1.5px solid #b44dff">
-        <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
-          <path d="M1 5L4.5 8.5L11 1" stroke="#b44dff" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+      <div class="option-check w-5 h-5 rounded-full bg-neon-purple flex items-center justify-center">
+        <svg width="10" height="8" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
       </div>
     </button>
   `).join('');
 
-  // Next button
   const nextBtn = document.getElementById('next-btn');
   nextBtn.disabled = true;
   nextBtn.classList.add('opacity-40');
-  nextBtn.textContent = currentQ === QUESTIONS.length - 1 ? 'See My Result 🎯' : 'Next →';
+  nextBtn.innerText = currentQ === QUESTIONS.length - 1 ? 'See Results' : 'Next →';
 }
 
-function selectOption(btn, idx, scoresJson) {
-  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  selectedOption = { idx, scores: JSON.parse(scoresJson) };
-
+function selectOption(idx) {
+  selectedIdx = idx;
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach((b, i) => i === idx ? b.classList.add('selected') : b.classList.remove('selected'));
   const nextBtn = document.getElementById('next-btn');
   nextBtn.disabled = false;
   nextBtn.classList.remove('opacity-40');
 }
 
 function nextQuestion() {
-  if (!selectedOption) return;
-
-  // Add scores
-  Object.keys(selectedOption.scores).forEach(key => {
-    scores[key] += selectedOption.scores[key];
-  });
-  answers.push(selectedOption.idx);
-
+  const qScores = QUESTIONS[currentQ].options[selectedIdx].scores;
+  for (let key in qScores) { userScores[key] += qScores[key]; }
+  
   currentQ++;
-
-  if (currentQ >= QUESTIONS.length) {
-    showResult();
-  } else {
+  if (currentQ < QUESTIONS.length) {
     renderQuestion();
+  } else {
+    showResult();
   }
 }
 
-// ============================================================
-// RESULT
-// ============================================================
 function showResult() {
-  // Find winner
-  const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-  const result = RESULTS[winner];
-
-  // Fill result screen
-  document.getElementById('result-emoji').textContent = result.emoji;
-  document.getElementById('result-title').textContent = result.title;
-  document.getElementById('result-subtitle').textContent = result.subtitle;
-  document.getElementById('result-desc').textContent = result.desc;
-  document.getElementById('result-earning').textContent = result.earning;
-  document.getElementById('result-cost').textContent = result.cost;
-
-  const badge = document.getElementById('result-badge');
-  badge.textContent = result.badge;
-  badge.style.background = result.badgeColor;
-  badge.style.color = result.badgeText;
-  badge.style.border = `1px solid ${result.badgeText}44`;
-  badge.style.fontSize = '0.7rem';
-  badge.style.fontWeight = '700';
-  badge.style.letterSpacing = '0.05em';
-  badge.style.borderRadius = '20px';
-
-  // Checklist
-  const checklist = document.getElementById('checklist');
-  checklist.innerHTML = result.steps.map(step => `
-    <div class="checklist-item flex gap-3 items-start">
-      <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-700"
-        style="background:rgba(170,255,0,0.15);color:#aaff00;border:1px solid rgba(170,255,0,0.3)">
-        ${step.num}
-      </div>
-      <p class="text-white/65 text-sm leading-relaxed pt-0.5">${step.text}</p>
-    </div>
-  `).join('');
-
-  // Store for sharing
-  window._currentResult = result;
-
+  const winner = Object.keys(userScores).reduce((a, b) => userScores[a] > userScores[b] ? a : b);
+  const r = RESULTS[winner];
+  document.getElementById('result-emoji').innerText = r.emoji;
+  document.getElementById('result-title').innerText = r.title;
+  document.getElementById('result-subtitle').innerText = r.subtitle;
+  document.getElementById('result-desc').innerText = r.desc;
+  document.getElementById('result-earning').innerText = r.earning;
+  document.getElementById('result-cost').innerText = r.cost;
+  
   showScreen('result');
   launchConfetti();
-
-  // Progress bar full
-  document.getElementById('progress-bar').style.width = '100%';
 }
 
-function retakeQuiz() {
-  showScreen('intro');
-}
-
-// ============================================================
-// SHARE
-// ============================================================
-function shareResult() {
-  const result = window._currentResult;
-  if (!result) return;
-  const text = result.shareText + '\n\nhttps://sheroo6211.github.io/SideHustleScout';
-
-  if (navigator.share) {
-    navigator.share({ title: 'Side Hustle Scout Result', text, url: 'https://sheroo6211.github.io/SideHustleScout' })
-      .catch(() => fallbackCopy(text));
-  } else {
-    fallbackCopy(text);
-  }
-}
-
-function fallbackCopy(text) {
-  navigator.clipboard.writeText(text).then(() => showToast('Result copied! Paste it anywhere 📲'));
-}
-
-// ============================================================
-// HELPERS
-// ============================================================
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+function retakeQuiz() { showScreen('intro'); }
 
 function launchConfetti() {
-  const colors = ['#b44dff','#aaff00','#00ffcc','#ff44aa','#ffcc00','#ffffff'];
-  for (let i = 0; i < 60; i++) {
-    setTimeout(() => {
-      const c = document.createElement('div');
-      c.className = 'confetti-piece';
-      c.style.left = Math.random() * 100 + 'vw';
-      c.style.top = '-20px';
-      c.style.background = colors[Math.floor(Math.random() * colors.length)];
-      c.style.width = (Math.random() * 8 + 5) + 'px';
-      c.style.height = (Math.random() * 8 + 5) + 'px';
-      c.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
-      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-      document.body.appendChild(c);
-      setTimeout(() => c.remove(), 5000);
-    }, i * 50);
+  for(let i=0; i<50; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.background = ['#b44dff', '#aaff00', '#ff44aa'][Math.floor(Math.random()*3)];
+    c.style.animationDuration = (Math.random() * 2 + 1) + 's';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3000);
   }
-}
-
-function showToast(msg) {
-  const t = document.createElement('div');
-  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a26;border:1px solid rgba(180,77,255,0.3);color:#fff;padding:12px 20px;border-radius:12px;font-size:0.85rem;z-index:9999;white-space:nowrap;animation:fadeIn 0.3s ease;box-shadow:0 0 20px rgba(180,77,255,0.2)';
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 3000);
 }
 </script>
 </body>
